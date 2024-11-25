@@ -28,22 +28,61 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+		String lowCase1 = preProcess(str1);
+		String lowCase2 = preProcess(str2);
+		String eraseChars = "";
+		boolean checkAnagram = true;
+
+		for (int i = 0 ; i < lowCase1.length(); i++){
+			if (lowCase2.indexOf(lowCase1.charAt(i)) == -1 && lowCase1.charAt(i) != ' '){
+				checkAnagram = false;
+				break;
+			}else {
+				for (int j = 0; j < lowCase2.length(); j++){
+					if (lowCase2.indexOf(lowCase1.charAt(i)) != j && lowCase2.charAt(j) != ' '){
+						eraseChars = eraseChars + lowCase2.charAt(j);
+					}
+				}
+				lowCase2 = eraseChars;
+				eraseChars = "";
+				}
+			}
+		return checkAnagram;
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+		String changeStr = str.toLowerCase();
+		String lowCaseStr = "";
+		String allLowerCase = "abcdefghijklmnopqrstuvwxyz ";
+		
+		for (int i = 0; i<changeStr.length(); i++){
+			if (allLowerCase.indexOf(changeStr.charAt(i)) != -1 ){
+				lowCaseStr = lowCaseStr + changeStr.charAt(i);
+			}
+		}
+		return lowCaseStr;
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+		String changeStr = str;
+		String toEraseLetter = "";
+		String anagramRandom = "";
+		while (changeStr.length() > 0){
+			int randomIndex = (int)(Math.random() * changeStr.length());
+			anagramRandom = anagramRandom + changeStr.charAt(randomIndex);
+			for (int i = 0; i < changeStr.length(); i++){
+				if (i != randomIndex){
+					toEraseLetter = toEraseLetter + changeStr.charAt(i);
+				}
+			}
+			changeStr = toEraseLetter;
+			toEraseLetter = "";
+	}
+	return anagramRandom;
 	}
 }
