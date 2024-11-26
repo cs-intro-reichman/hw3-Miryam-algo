@@ -25,18 +25,32 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		while (x2>0){
-			x1++;
-			x2--;
+		if (x2 < 0){
+			while (x2 < 0){
+				x1--;
+				x2++;
+			}
+		} else {
+			while (x2 > 0){
+				x1++;
+				x2--;
+			}
 		}
 		return x1;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		while (x2>0){
-			x1--;
-			x2--;
+		if (x2 < 0){
+			while (x2 < 0){
+				x1++;
+				x2++;
+			}
+		} else {
+			while (x2 > 0){
+				x1--;
+				x2--;
+			}
 		}
 		return x1;
 	}
@@ -44,9 +58,21 @@ public class Algebra {
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 		int sum = 0;
-		while (x2>0){
-			sum = plus(sum,x1);
-			x2--;
+
+		if (x1 > 0  && x2 > 0){
+			while (x2 > 0){
+				sum = plus (sum, x1);
+				x2--;
+			}
+		} else if (x2 < 0) {
+			while (x2 < 0) { 
+				sum = minus (sum, x1);
+				x2++;
+			}
+		} else {
+			while (x2 > 0) {
+				sum = minus (sum, x1);
+			}
 		}
 		return sum;
 	}
@@ -54,7 +80,8 @@ public class Algebra {
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
 		int sum = 1;
-		while (n>0){
+
+		while (n > 0) {
 			sum = times(sum,x);
 			n--;
 		}
@@ -64,26 +91,45 @@ public class Algebra {
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		int counter = 0;
-		while (x1>=x2){
-			x1 = minus(x1,x2);
-			counter++;
+		if ( x1 > 0 && x2 > 0){
+			while (x1 >= x2){
+				x1 = minus (x1, x2);
+				counter++;
+			}
+		} else {
+			if (x1 < 0 && x2 < 0){
+				while (x1 < 0){
+					x1 = minus(x1, x2);
+					counter++;
+				}
+			} else if (x1 < 0){
+				while (x1 < 0){
+					x1 = plus (x1, x2);
+					counter--;
+				}
+			} else {
+				while (x1 > 0){
+					x1 = plus (x1, x2);
+					counter--;
+				}
+			}
 		}
 		return counter;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		int divider = div(x1,x2);
-		for (int i=0; i<divider; i++){
-			x1= minus(x1,x2);
+		int divider = div (x1, x2);
+		for (int i=0; i < divider; i++){
+			x1 = minus (x1, x2);
 		}
 		return x1;
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		int i =0;
-		while (times(i,i)<=x){
+		int i = 0;
+		while (times (i, i) <= x){
 			i++;
 		}
 		i--;
