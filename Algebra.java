@@ -59,6 +59,10 @@ public class Algebra {
 	public static int times(int x1, int x2) {
 		int sum = 0;
 
+		if (x1 == 0 || x2 == 0){
+			return sum;
+		}
+
 		if (x1 > 0  && x2 > 0){
 			while (x2 > 0){
 				sum = plus (sum, x1);
@@ -71,7 +75,8 @@ public class Algebra {
 			}
 		} else {
 			while (x2 > 0) {
-				sum = minus (sum, x1);
+				sum = plus (sum, x1);
+				x2--;
 			}
 		}
 		return sum;
